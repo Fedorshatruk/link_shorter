@@ -128,3 +128,5 @@ CACHES = {
         }
     }
 }
+
+TOKEN_LENGTH = 10
