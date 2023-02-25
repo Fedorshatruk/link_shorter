@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "drf_yasg",
 
     "shorter.apps.ShorterConfig",
 ]
@@ -49,6 +51,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "shorter.middleware.owner.OwnerMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -130,3 +133,33 @@ CACHES = {
 }
 
 TOKEN_LENGTH = 10
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+}
+
+REDIS = {
+    'host': 'localhost',
+    'port': 6379,
+    'db': 0,
+}
+
+CELERY_TIMEZONE = "Europe/Moscow"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_CACHE_BACKEND = 'default'
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/1"
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}

@@ -7,7 +7,7 @@ class Token(models.Model):
         verbose_name='Владелец',
         on_delete=models.CASCADE,
     )
-    full_url = models.UUIDField(verbose_name='ссылка')
+    full_url = models.URLField(verbose_name='ссылка')
     subpart = models.CharField(
         verbose_name='суб домен',
         max_length=20,

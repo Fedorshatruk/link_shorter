@@ -1,3 +1,13 @@
 from django.contrib import admin
 
-# Register your models here.
+from shorter.models import Token, Owner
+
+
+@admin.register(Token)
+class TokenAdmin(admin.ModelAdmin):
+    ...
+
+
+@admin.register(Owner)
+class OwnerAdmin(admin.ModelAdmin):
+    ...
