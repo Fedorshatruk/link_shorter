@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.deprecation import MiddlewareMixin
 
@@ -14,5 +15,9 @@ class OwnerMiddleware(MiddlewareMixin):
                 "'django.contrib.sessions.middleware.SessionMiddleware' before "
                 "'shorter.middleware.owner.OwnerMiddleware'."
             )
-        request.owner, created = Owner.objects.get_or_create(session_id=request.session.session_key)
-        del created
+        if session_key := request.session.session_key:
+            request.owner, created = Owner.objects.get_or_create(session_id=session_key)
+            del created
+        else:
+            request.session.save()
+            request.owner = None
