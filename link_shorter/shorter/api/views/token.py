@@ -1,9 +1,10 @@
-from django.db.models import Value, F
+from django.db.models import F, Value
 from django.db.models.functions import Concat
+
 from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
 
-from shorter.api.mixins import RedisUpdateModelMixin, RedisCreateModelMixin, RedisDestroyModelMixin
+from shorter.api.mixins import RedisCreateModelMixin, RedisDestroyModelMixin, RedisUpdateModelMixin
 from shorter.api.serializers import TokenCreateSerializer, TokenListSerializer
 from shorter.models import Token
 

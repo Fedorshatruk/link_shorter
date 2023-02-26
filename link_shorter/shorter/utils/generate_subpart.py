@@ -1,7 +1,7 @@
 import random
 
-from django.utils.baseconv import BASE62_ALPHABET
 from django.conf import settings
+from django.utils.baseconv import BASE62_ALPHABET
 
 from shorter.models import Token
 
