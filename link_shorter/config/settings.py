@@ -120,6 +120,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+STATIC_ROOT = Path(BASE_DIR, STATIC_URL)
 
 # Media files
 MEDIA_URL = "/media/"
@@ -158,7 +159,7 @@ REST_FRAMEWORK = {
 }
 
 REDIS = {
-    'host': 'localhost',
+    'host': 'redis',
     'port': 6379,
     'db': 0,
 }
@@ -167,11 +168,11 @@ CELERY_TIMEZONE = "Europe/Moscow"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_CACHE_BACKEND = 'default'
-CELERY_BROKER_URL = "redis://127.0.0.1:6379/1"
+CELERY_BROKER_URL = "redis://redis:6379/1"
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": "redis://redis/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
