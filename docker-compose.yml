@@ -1,0 +1,21 @@
+version: '3'
+services:
+  redis:
+    image: redis
+    container_name: redis
+    expose:
+      - 6379
+
+  web: &django_conf
+    build:
+      context: ./link_shorter
+    command: python manage.py runserver 0.0.0.0:80
+    depends_on:
+      - redis
+    ports:
+      - "8000:80"
+
+  celery:
+    <<: *django_conf
+    command: celery -A config worker -E -l DEBUG
+    ports: [ ]
